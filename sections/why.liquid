@@ -25,7 +25,7 @@
         {%- if section.settings.image != blank -%}
           <img src="{{ section.settings.image | image_url: width: 800 }}" alt="{{ shop.name }}" width="512" height="512" loading="lazy" decoding="async" class="relative z-10 drop-shadow-2xl" style="height: 320px; object-fit: contain;">
         {%- else -%}
-          <img src="{{ 'hero-product.webp' | asset_url }}" alt="{{ shop.name }}" width="512" height="512" loading="lazy" decoding="async" class="relative z-10 drop-shadow-2xl" style="height: 320px; object-fit: contain;">
+          <img src="{{ 'hero-product.jpg' | asset_url }}" alt="{{ shop.name }}" width="512" height="512" loading="lazy" decoding="async" class="relative z-10 drop-shadow-2xl" style="height: 320px; object-fit: contain;">
         {%- endif -%}
       </div>
     </div>
