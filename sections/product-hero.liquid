@@ -235,16 +235,16 @@
                       <div class="bundle-label-line">
                         <span class="font-semibold">{{ block.settings.label }}</span>
                         {%- if block.settings.save_amount > 0 -%}
-                          <span class="bundle-save text-xs font-semibold text-primary">SAVE ${{ block.settings.save_amount | money_without_currency }}</span>
+                          <span class="bundle-save text-xs font-semibold text-primary">SAVE ${{ block.settings.save_amount | divided_by: 100.0 }}</span>
                         {%- endif -%}
                       </div>
                       <p class="text-xs text-muted-foreground">{{ block.settings.description }}</p>
                     </div>
                   </div>
                   <div class="bundle-price">
-                    <span class="font-bold text-lg">${{ block.settings.price | money_without_currency }}</span>
+                    <span class="font-bold text-lg">${{ block.settings.price | divided_by: 100.0 }}</span>
                     {%- if block.settings.save_amount > 0 -%}
-                      <p class="text-xs line-through text-muted-foreground">${{ block.settings.original_price | money_without_currency }}</p>
+                      <p class="text-xs line-through text-muted-foreground">${{ block.settings.original_price | divided_by: 100.0 }}</p>
                     {%- endif -%}
                   </div>
                 </div>
@@ -259,7 +259,7 @@
                           <span style="font-size: 0.95rem;">{{ upsell.settings.icon }}</span>
                           <span class="text-sm">+ {{ upsell.settings.label }}</span>
                         </div>
-                        <span class="text-sm font-medium">${{ upsell.settings.price | money_without_currency }}</span>
+                        <span class="text-sm font-medium">${{ upsell.settings.price | divided_by: 100.0 }}</span>
                       </label>
                     {%- endif -%}
                   {%- endfor -%}
