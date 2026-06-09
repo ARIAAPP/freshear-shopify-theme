@@ -1,0 +1,123 @@
+{%- capture _bn -%}{%- render 'brand-name' -%}{%- endcapture -%}
+<section class="comparison-table-section py-16 md:py-20">
+  <div class="container max-w-2xl">
+    <div class="text-center space-y-2" style="margin-bottom: 2.5rem;">
+      <h2 class="text-3xl font-bold">{{ section.settings.title | replace: 'CleanEar', _bn }}</h2>
+      <p class="text-muted-foreground">{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
+      <table class="comparison-table" style="min-width:0;">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="highlighted">{%- render 'brand-name' -%}</th>
+            <th>{{ section.settings.col_b | default: 'Cotton Swabs' }}</th>
+            <th>{{ section.settings.col_c | default: 'ENT Visit' }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr {{ block.shopify_attributes }}>
+              <th scope="row">{{ block.settings.criteria }}</th>
+              <td class="highlighted-col">
+                {%- case block.settings.col_a -%}
+                  {%- when 'yes' -%}<span class="cmp-yes">✓</span>
+                  {%- when 'no' -%}<span class="cmp-no">✗</span>
+                  {%- when 'mid' -%}<span class="cmp-mid">~</span>
+                  {%- else -%}{{ block.settings.col_a }}
+                {%- endcase -%}
+              </td>
+              <td>
+                {%- case block.settings.col_b -%}
+                  {%- when 'yes' -%}<span class="cmp-yes">✓</span>
+                  {%- when 'no' -%}<span class="cmp-no">✗</span>
+                  {%- when 'mid' -%}<span class="cmp-mid">~</span>
+                  {%- else -%}{{ block.settings.col_b }}
+                {%- endcase -%}
+              </td>
+              <td>
+                {%- case block.settings.col_c -%}
+                  {%- when 'yes' -%}<span class="cmp-yes">✓</span>
+                  {%- when 'no' -%}<span class="cmp-no">✗</span>
+                  {%- when 'mid' -%}<span class="cmp-mid">~</span>
+                  {%- else -%}{{ block.settings.col_c }}
+                {%- endcase -%}
+              </td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+
+    {%- if section.settings.cta_label != blank -%}
+      <div class="text-center" style="margin-top: 2rem;">
+        <a href="{{ section.settings.cta_url }}" class="btn btn-lg">{{ section.settings.cta_label | replace: 'CleanEar', _bn }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Comparison Table",
+  "tag": "section",
+  "class": "comparison-section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Why FreshEar beats the competition" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Compared to traditional solutions, the choice is clear" },
+    { "type": "text", "id": "col_a", "label": "Column A (highlight)", "default": "FreshEar" },
+    { "type": "text", "id": "col_b", "label": "Column B", "default": "Cotton swabs" },
+    { "type": "text", "id": "col_c", "label": "Column C", "default": "ENT (visit)" },
+    { "type": "text", "id": "cta_label", "label": "CTA button text", "default": "I choose FreshEar" },
+    { "type": "text", "id": "cta_url", "label": "Button URL", "default": "/#product" }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        { "type": "text", "id": "criteria", "label": "Criteria", "default": "Safety" },
+        {
+          "type": "select",
+          "id": "col_a",
+          "label": "Column A value",
+          "options": [
+            { "value": "yes", "label": "✓ Yes" },
+            { "value": "no", "label": "✗ No" },
+            { "value": "mid", "label": "~ Average" },
+            { "value": "text", "label": "Custom text" }
+          ],
+          "default": "yes"
+        },
+        { "type": "text", "id": "col_a_text", "label": "Custom text column A (if selected)" },
+        {
+          "type": "select",
+          "id": "col_b",
+          "label": "Column B value",
+          "options": [
+            { "value": "yes", "label": "✓ Yes" },
+            { "value": "no", "label": "✗ No" },
+            { "value": "mid", "label": "~ Average" },
+            { "value": "text", "label": "Custom text" }
+          ],
+          "default": "no"
+        },
+        {
+          "type": "select",
+          "id": "col_c",
+          "label": "Column C value",
+          "options": [
+            { "value": "yes", "label": "✓ Yes" },
+            { "value": "no", "label": "✗ No" },
+            { "value": "mid", "label": "~ Average" },
+            { "value": "text", "label": "Custom text" }
+          ],
+          "default": "yes"
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Comparison Table" }]
+}
+{% endschema %}

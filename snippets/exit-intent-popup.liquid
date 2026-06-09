@@ -1,0 +1,142 @@
+<div class="exit-popup" data-exit-popup>
+  <div class="exit-popup-card">
+    <button type="button" class="exit-popup-close" aria-label="Close" data-exit-close>&times;</button>
+    <div class="exit-popup-emoji">🎁</div>
+    <h3>Wait! We have a gift for you.</h3>
+    <p>One last nudge:<br><strong style="color:var(--color-primary); font-size:1.05em;">FREE Priority Processing</strong><br><span style="font-size:0.9em;">(value $7.95 — ships within 24h)</span></p>
+    <div class="exit-gift-badge">
+      <span style="font-size:1.5rem;">🚀</span>
+      <span style="font-weight:700;">$7.95 off your order</span>
+    </div>
+    <a href="#" class="btn btn-block btn-lg" data-exit-cta>Activate my gift</a>
+    <button type="button" class="exit-popup-close-link" data-exit-close style="background:none; border:0; color:var(--color-muted-fg); font-size:0.75rem; margin-top:0.75rem; cursor:pointer; text-decoration:underline;">No thanks, I'll pass</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const popup = document.querySelector('[data-exit-popup]');
+  if (!popup) return;
+  const STORAGE_KEY = 'cleanear-exit-popup-shown';
+  const closeBtns = popup.querySelectorAll('[data-exit-close]');
+  const ctaBtn = popup.querySelector('[data-exit-cta]');
+
+  const TRAITEMENT_VARIANT_ID = 57819516764505;
+  const IRRIGATEUR_PRODUCT_HINT = 'ear cleaner';
+
+  // Don't show if already shown in last 24h
+  let lastShown = 0;
+  try {
+    lastShown = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+  } catch(e) {}
+  if (Date.now() - lastShown < 86400000) return;
+
+  let shown = false;
+  let cartHasIrrigateur = false;
+
+  async function refreshCartStatus() {
+    try {
+      const r = await fetch('/cart.js', { credentials: 'same-origin' });
+      const cart = await r.json();
+      cartHasIrrigateur = (cart.items || []).some(it => {
+        const title = ((it.product_title || '') + ' ' + (it.title || '')).toLowerCase();
+        return title.indexOf(IRRIGATEUR_PRODUCT_HINT) !== -1;
+      });
+    } catch(e) { cartHasIrrigateur = false; }
+    return cartHasIrrigateur;
+  }
+
+  async function maybeShow() {
+    if (shown) return;
+    // Only show if user has the Irrigateur in cart (qualified buyer)
+    const ok = await refreshCartStatus();
+    if (!ok) return;
+    show();
+  }
+
+  function show() {
+    if (shown) return;
+    shown = true;
+    popup.dataset.open = 'true';
+    try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch(e) {}
+    if (window.fbq) window.fbq('trackCustom', 'ExitIntentShown', {});
+  }
+  function hide() { popup.dataset.open = 'false'; }
+
+  closeBtns.forEach(b => b.addEventListener('click', hide));
+  popup.addEventListener('click', (e) => { if (e.target === popup) hide(); });
+
+  if (ctaBtn) {
+    ctaBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      if (ctaBtn.dataset.busy === '1') return;
+      ctaBtn.dataset.busy = '1';
+      ctaBtn.textContent = 'Activating…';
+      if (window.fbq) window.fbq('trackCustom', 'ExitIntentClick', { offer: 'priority-shipping-free' });
+
+      // Add Traitement prioritaire if not already in cart
+      try {
+        const cart = await fetch('/cart.js', { credentials: 'same-origin' }).then(r => r.json());
+        const hasTraitement = (cart.items || []).some(it => it.id === TRAITEMENT_VARIANT_ID || it.variant_id === TRAITEMENT_VARIANT_ID);
+        if (!hasTraitement) {
+          await fetch('/cart/add.js', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ items: [{ id: TRAITEMENT_VARIANT_ID, quantity: 1 }] })
+          });
+        }
+      } catch (err) {
+        console.warn('add Priority Processing failed', err);
+      }
+      // Apply Buy-X-Get-Y discount; both X (Irrigateur) and Y (Priority Processing) are now in cart so it locks in
+      window.location.href = '/discount/PRIORITAIRE?redirect=/cart';
+    });
+  }
+
+  const isMobile = !window.matchMedia('(min-width: 768px)').matches;
+  const MIN_DWELL_MS = 30000; // visitor must spend at least 30s before any trigger fires
+  const pageEnter = Date.now();
+  const dwellOk = () => (Date.now() - pageEnter) >= MIN_DWELL_MS;
+
+  // Scroll trigger (both desktop & mobile): show if visitor reaches 50% page height
+  let scrollTriggered = false;
+  window.addEventListener('scroll', () => {
+    if (scrollTriggered || !dwellOk()) return;
+    const doc = document.documentElement;
+    const scrolled = (window.scrollY + window.innerHeight) / doc.scrollHeight;
+    if (scrolled >= 0.5) {
+      scrollTriggered = true;
+      maybeShow();
+    }
+  }, { passive: true });
+
+  if (!isMobile) {
+    // Desktop: real exit intent (mouse leaves top) — but only after 30s dwell
+    let exitTriggered = false;
+    document.addEventListener('mouseleave', async (e) => {
+      if (e.clientY <= 0 && !exitTriggered && dwellOk()) {
+        exitTriggered = true;
+        await maybeShow();
+      }
+    });
+    // Fallback: 90s if user stays on page
+    setTimeout(maybeShow, 90000);
+  } else {
+    // Mobile: 60s fallback
+    setTimeout(maybeShow, 60000);
+  }
+
+  // Refresh cart status when user adds something so popup becomes eligible
+  document.addEventListener('cart:updated', refreshCartStatus);
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-add-to-cart], [name="add"], button[type="submit"]');
+    if (t) setTimeout(refreshCartStatus, 800);
+  }, true);
+
+  // Escape closes
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') hide();
+  });
+})();
+</script>

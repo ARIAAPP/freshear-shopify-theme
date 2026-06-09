@@ -1,0 +1,159 @@
+{
+  "sections":  {
+    "product_hero": {
+      "type": "product-hero",
+      "settings": {
+        "product_title": "FreshEar Pro Electric Ear Cleaner",
+        "default_price": "49.99",
+        "launch_offer_label": "Launch offer — special price",
+        "default_bundle_index": 1,
+        "show_countdown": true,
+        "show_delivery_timeline": true,
+        "show_featured_review": true,
+        "review_initials": "JM",
+        "review_author": "Jennifer M., 58 — Dallas, TX",
+        "review_text": "I was nervous at first, but it's actually very gentle. The warm water and adjustable pressure make it way better than cotton swabs. Highly recommend.",
+        "orders_label": "",
+        "rating_label": "Customer Reviews",
+        "bundle_section_title": "Choose your pack",
+        "countdown_label_default": "Launch offer — ending soon",
+        "cta_label": "Order Now"
+      },
+      "blocks": {
+        "bullet_1": { "type": "bullet", "settings": { "text": "More effective and safer than cotton swabs" } },
+        "bullet_2": { "type": "bullet", "settings": { "text": "Gentle and painless — suitable for the whole family" } },
+        "bullet_3": { "type": "bullet", "settings": { "text": "Adjustable pressure for your comfort" } },
+        "bullet_4": { "type": "bullet", "settings": { "text": "Transparent reservoir: see the results" } },
+        "bundle_1": { "type": "bundle", "settings": { "label": "1 cleaner", "description": "For personal use", "variant_id": "57818495582553", "quantity": 1, "price": 4999, "original_price": 13317, "save_amount": 0, "badge": "none" } },
+        "bundle_2": { "type": "bundle", "settings": { "label": "2 cleaners", "description": "For you and your partner. Save $9.99.", "variant_id": "57818495582553", "quantity": 2, "price": 8999, "original_price": 24983, "save_amount": 999, "badge": "popular", "badge_text": "Most Popular" } },
+        "bundle_3": { "type": "bundle", "settings": { "label": "3 cleaners", "description": "For the whole family. Save $19.98.", "variant_id": "57818495582553", "quantity": 3, "price": 12999, "original_price": 34983, "save_amount": 1998, "badge": "best", "badge_text": "Best Value" } },
+        "collap_1": { "type": "collapsible", "settings": { "emoji": "📦", "title": "Shipping & Tracking", "content": "<p>Your order is prepared and shipped within 48 hours. You'll receive a confirmation email with tracking number.</p>" } },
+        "collap_2": { "type": "collapsible", "settings": { "emoji": "🚚", "title": "Free US Shipping", "content": "<p>Free standard shipping to all US addresses. Delivered in 5–10 business days. Email tracking included.</p>" } }
+      },
+      "block_order": ["bullet_1","bullet_2","bullet_3","bullet_4","bundle_1","bundle_2","bundle_3","collap_1","collap_2"]
+    },
+    "facebook_community": {
+      "type": "facebook-community",
+      "settings": { "title": "Love from our Facebook community" },
+      "blocks": {
+        "post_1": { "type": "post", "settings": { "name": "Jennifer M.", "time": "3 days ago", "text": "I use it every two weeks — so much more effective than cotton swabs. Especially great if you tend to get earwax buildup.", "likes": "324", "comments": "21" } },
+        "post_2": { "type": "post", "settings": { "name": "Robert K.", "time": "1 week ago", "text": "Bought one for my wife and me. Very easy to use, you adjust the pressure and the water gently removes earwax. No more ENT visits.", "likes": "417", "comments": "32" } },
+        "post_3": { "type": "post", "settings": { "name": "Linda S.", "time": "4 days ago", "text": "I was skeptical at first, but it's incredibly gentle and clean. The transparent reservoir lets you see what comes out.", "likes": "289", "comments": "18" } }
+      },
+      "block_order": ["post_1","post_2","post_3"]
+    },
+    "comparison": {
+      "type": "comparison-table",
+      "settings": {
+        "title": "FreshEar Co vs. other solutions",
+        "subtitle": "A simple and safe alternative to cotton swabs and ENT visits.",
+        "col_a": "FreshEar Co",
+        "col_b": "Cotton Swabs",
+        "col_c": "ENT Visit",
+        "cta_label": "Order FreshEar Co",
+        "cta_url": "/#product"
+      },
+      "blocks": {
+        "r1": { "type": "row", "settings": { "criteria": "Safe for the eardrum", "col_a": "yes", "col_b": "no", "col_c": "yes" } },
+        "r2": { "type": "row", "settings": { "criteria": "Gentle and painless", "col_a": "yes", "col_b": "mid", "col_c": "mid" } },
+        "r3": { "type": "row", "settings": { "criteria": "See the results (transparent reservoir)", "col_a": "yes", "col_b": "no", "col_c": "no" } },
+        "r4": { "type": "row", "settings": { "criteria": "Use at home, whenever you want", "col_a": "yes", "col_b": "yes", "col_c": "no" } },
+        "r5": { "type": "row", "settings": { "criteria": "Cost over 1 year", "col_a": "yes", "col_b": "mid", "col_c": "no" } }
+      },
+      "block_order": ["r1","r2","r3","r4","r5"]
+    },
+    "why": {
+      "type": "why",
+      "settings": {
+        "title_before": "Why everyone is switching to",
+        "title_highlight": "FreshEar Co",
+        "title_after": "?",
+        "cta_label": "Make the switch",
+        "cta_url": "/#product"
+      },
+      "blocks": {
+        "b1": { "type": "benefit", "settings": { "text": "Compact, easy to store" } },
+        "b2": { "type": "benefit", "settings": { "text": "No assembly required" } },
+        "b3": { "type": "benefit", "settings": { "text": "See what's being removed" } },
+        "b4": { "type": "benefit", "settings": { "text": "Fully adjustable pressure" } },
+        "b5": { "type": "benefit", "settings": { "text": "Comfortable and painless" } },
+        "b6": { "type": "benefit", "settings": { "text": "Simple to use daily" } },
+        "b7": { "type": "benefit", "settings": { "text": "No mess, no cotton to throw away" } },
+        "b8": { "type": "benefit", "settings": { "text": "Reusable for years" } }
+      },
+      "block_order": ["b1","b2","b3","b4","b5","b6","b7","b8"]
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": { "title": "What our customers say", "subtitle": "Verified reviews — real photos" },
+      "blocks": {
+        "r1": { "type": "review", "settings": { "name": "Jennifer M., 58 — Dallas, TX", "rating": 5, "text": "I was nervous at first, but it's actually very gentle. The warm water and adjustable pressure make it way better than cotton swabs. Highly recommend." } },
+        "rp1": { "type": "review_photo" },
+        "r2": { "type": "review", "settings": { "name": "Robert K., 61 — Denver, CO", "rating": 5, "text": "Bought this after an ENT visit that cost me $200 just for earwax removal. With FreshEar I do it myself at home. Great investment." } },
+        "rp2": { "type": "review_photo" },
+        "r3": { "type": "review", "settings": { "name": "Linda S., 64 — Phoenix, AZ", "rating": 4, "text": "Very easy to use, especially for someone my age. Clear instructions included. Only downside is the charging time, but otherwise perfect." } },
+        "rp3": { "type": "review_photo" },
+        "r4": { "type": "review", "settings": { "name": "James W., 66 — Chicago, IL", "rating": 5, "text": "Got the 3-pack to give to my kids. Everyone loves it. Well-built, effective, and way better than anything you'd find at the drugstore." } },
+        "rp4": { "type": "review_photo" },
+        "r5": { "type": "review", "settings": { "name": "Patricia B., 55 — Nashville, TN", "rating": 5, "text": "Responsive customer service and a product that delivers on its promises. Haven't used cotton swabs since. My husband uses it too." } },
+        "rp5": { "type": "review_photo" },
+        "r6": { "type": "review", "settings": { "name": "Michael H., 63 — Portland, OR", "rating": 4, "text": "Good product, gets the job done. You need to follow the instructions carefully the first time. Once you get the hang of it, very convenient." } },
+        "rp6": { "type": "review_photo" },
+        "r7": { "type": "review", "settings": { "name": "Susan P., 52 — Miami, FL", "rating": 5, "text": "Fast shipping. Tested it the same evening — I'm amazed at how effective it is. My ENT is going to lose a customer!" } },
+        "rp7": { "type": "review_photo" },
+        "r8": { "type": "review", "settings": { "name": "David T., 68 — Seattle, WA", "rating": 5, "text": "My daughter gave me this for my birthday. Skeptical at first, but now I use it every two weeks. The water jet is very precise." } },
+        "rp8": { "type": "review_photo" }
+      },
+      "block_order": ["r1","rp1","r2","rp2","r3","rp3","r4","rp4","r5","rp5","r6","rp6","r7","rp7","r8","rp8"]
+    },
+    "story": {
+      "type": "story",
+      "settings": {
+        "eyebrow": "Our Story",
+        "title": "Why we created FreshEar Co",
+        "text": "<p>Like many people, we had been using cotton swabs our whole lives. And like many, we ended up at the ENT for earwax blockages — a $200 visit, repeated several times a year.</p><p>ENTs have been saying it for years: cotton swabs push earwax deeper instead of removing it, and can damage the eardrum. But a real at-home alternative didn't exist.</p><p>So we created <strong>FreshEar</strong>: an electric ear cleaner that's simple to use, painless, with adjustable pressure and a transparent reservoir to see the results.</p><p>Today, hundreds of American families use it daily. We'd love for yours to be next.</p>",
+        "founder_name": "The FreshEar Team",
+        "founder_title": "Co. — designed with care"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "title": "Frequently Asked Questions",
+        "cta_text": "Still have doubts? Our customers are won over from the very first use.",
+        "cta_label": "I'm ordering FreshEar"
+      },
+      "blocks": {
+        "q1": { "type": "faq", "settings": { "emoji": "📦", "question": "When will I receive my order?", "answer": "<p>Your order is shipped within 48 hours. Free standard shipping to all US addresses, delivered in 5–10 business days. Email tracking included.</p>" } },
+        "q2": { "type": "faq", "settings": { "emoji": "💬", "question": "How do I maintain my FreshEar?", "answer": "<p>After each use, empty the reservoir and rinse the tip with clean water. Let it air dry. The tips are interchangeable and can be replaced if needed.</p>" } },
+        "q3": { "type": "faq", "settings": { "emoji": "👌", "question": "Is it difficult to use?", "answer": "<p>Not at all. Fill the reservoir with warm water, choose your tip, adjust the pressure, and let the device do the work. Everything is explained in the included instructions.</p>" } },
+        "q4": { "type": "faq", "settings": { "emoji": "💧", "question": "Does it hurt?", "answer": "<p>No. The water jet is gentle and the pressure is fully adjustable, from the softest to the strongest setting. It's much more comfortable than cotton swabs and safe for the eardrum.</p>" } },
+        "q5": { "type": "faq", "settings": { "emoji": "🧐", "question": "Why not just use a cotton swab?", "answer": "<p>ENTs have been advising against them for years: cotton swabs push earwax deeper into the ear canal and can damage the eardrum. FreshEar uses a water jet that safely removes earwax outward.</p>" } },
+        "q6": { "type": "faq", "settings": { "emoji": "✅", "question": "Is it reusable?", "answer": "<p>Yes, FreshEar is designed to last for years. Simply rinse the tips with clean water after each use. No consumables to buy.</p>" } },
+        "q7": { "type": "faq", "settings": { "emoji": "📞", "question": "How can I reach you if I have a problem?", "answer": "<p>By email at <strong>support@freshearco.com</strong>. We respond within 24–48 business hours.</p>" } }
+      },
+      "block_order": ["q1","q2","q3","q4","q5","q6","q7"]
+    },
+    "ugc_videos": {
+      "type": "ugc-videos",
+      "settings": {
+        "eyebrow": "Customer Videos",
+        "title": "They tried it",
+        "subtitle": "Real videos from our customers — judge for yourself",
+        "show_cta": true,
+        "cta_label": "I want mine",
+        "cta_url": "/#product"
+      },
+      "blocks": {
+        "v1": { "type": "video", "settings": { "video_asset": "cleanear-ugc-1.mp4", "caption": "" } },
+        "v2": { "type": "video", "settings": { "video_asset": "cleanear-ugc-2.mp4", "caption": "" } },
+        "v3": { "type": "video", "settings": { "video_asset": "cleanear-ugc-3.mp4", "caption": "" } },
+        "v4": { "type": "video", "settings": { "video_asset": "cleanear-ugc-4.mp4", "caption": "" } },
+        "v5": { "type": "video", "settings": { "video_asset": "cleanear-ugc-5.mp4", "caption": "" } },
+        "v6": { "type": "video", "settings": { "video_asset": "cleanear-ugc-6.mp4", "caption": "" } }
+      },
+      "block_order": ["v1","v2","v3","v4","v5","v6"]
+    }
+  },
+  "order": ["product_hero","ugc_videos","facebook_community","comparison","why","reviews","story","faq"]
+}

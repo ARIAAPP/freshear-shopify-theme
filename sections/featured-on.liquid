@@ -1,0 +1,67 @@
+<section class="py-12 border-y press-logos" style="border-color: var(--color-border);">
+  <div class="container text-center space-y-6">
+    <p class="text-2xl font-bold italic">{{ section.settings.title }}</p>
+    <div class="flex items-center justify-center flex-wrap" style="gap: 2rem 3.5rem;">
+      {%- for block in section.blocks -%}
+        <span class="text-xl md:text-2xl font-bold tracking-tight" {{ block.shopify_attributes }} style="font-family: {{ block.settings.font_style }}; font-style: {% if block.settings.italic %}italic{% else %}normal{% endif %};">{{ block.settings.name }}</span>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured on",
+  "tag": "section",
+  "class": "featured-on-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Featured on"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo presse",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nom",
+          "default": "Forbes"
+        },
+        {
+          "type": "select",
+          "id": "font_style",
+          "label": "Style de police",
+          "options": [
+            {
+              "value": "inherit",
+              "label": "Sans-serif"
+            },
+            {
+              "value": "serif",
+              "label": "Serif"
+            }
+          ],
+          "default": "inherit"
+        },
+        {
+          "type": "checkbox",
+          "id": "italic",
+          "label": "Italique",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured on"
+    }
+  ]
+}
+{% endschema %}

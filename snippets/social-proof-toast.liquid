@@ -1,0 +1,49 @@
+<div class="social-proof-toast" data-social-proof-toast aria-live="polite">
+  <div class="flex items-start gap-3 rounded-xl border bg-background shadow-lg" style="border-color: var(--color-border); padding: 1rem;">
+    <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
+      <span style="font-size: 1.1rem;">🛒</span>
+    </div>
+    <div class="flex-1 min-w-0">
+      <p class="text-sm font-medium" data-toast-name>—</p>
+      <p class="text-xs text-muted-foreground" data-toast-message>—</p>
+    </div>
+    <button type="button" class="shrink-0 text-muted-foreground" data-toast-close aria-label="Close">&times;</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const buyers = [
+    { name: 'Sarah L.', city: 'New York', time: '2 min ago' },
+    { name: 'Mike P.', city: 'Los Angeles', time: '5 min ago' },
+    { name: 'Emma G.', city: 'Chicago', time: '8 min ago' },
+    { name: 'Jason R.', city: 'Houston', time: '12 min ago' },
+    { name: 'Ashley D.', city: 'Phoenix', time: '15 min ago' },
+    { name: 'Chris M.', city: 'Dallas', time: '18 min ago' },
+    { name: 'Rachel B.', city: 'Denver', time: '22 min ago' },
+    { name: 'Tyler T.', city: 'Seattle', time: '25 min ago' }
+  ];
+  const toast = document.querySelector('[data-social-proof-toast]');
+  if (!toast) return;
+  const nameEl = toast.querySelector('[data-toast-name]');
+  const msgEl = toast.querySelector('[data-toast-message]');
+  const closeBtn = toast.querySelector('[data-toast-close]');
+  let current = 0;
+
+  function show(b) {
+    nameEl.textContent = b.name + ' — ' + b.city;
+    msgEl.textContent = "ordered a FreshEar Co " + b.time;
+    toast.dataset.visible = 'true';
+  }
+  function hide() { toast.dataset.visible = 'false'; }
+  if (closeBtn) closeBtn.addEventListener('click', hide);
+
+  setTimeout(() => show(buyers[0]), 8000);
+  setTimeout(hide, 12000);
+  setInterval(() => {
+    current = (current + 1) % buyers.length;
+    show(buyers[current]);
+    setTimeout(hide, 4000);
+  }, 15000);
+})();
+</script>

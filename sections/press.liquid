@@ -1,0 +1,45 @@
+<section class="py-12 border-y press-logos" style="border-color: var(--color-border);">
+  <div class="container text-center space-y-6">
+    <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{{ section.settings.title }}</p>
+    <div class="flex items-center justify-center flex-wrap" style="gap: 3rem;">
+      {%- for block in section.blocks -%}
+        <span class="text-2xl font-bold tracking-tight" {{ block.shopify_attributes }}>{{ block.settings.name }}</span>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vu dans la presse",
+  "tag": "section",
+  "class": "press-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Vu dans la presse"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nom",
+          "default": "Forbes"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vu dans la presse"
+    }
+  ]
+}
+{% endschema %}

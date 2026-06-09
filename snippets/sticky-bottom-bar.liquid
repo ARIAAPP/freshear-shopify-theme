@@ -1,0 +1,79 @@
+<div class="sticky-bottom-bar" data-sticky-bar>
+  <div class="container flex items-center justify-between gap-4" style="padding: 1rem 0;">
+    <div class="flex items-center gap-3" style="min-width:0; flex:1;">
+      {%- assign sticky_product = all_products['intelligent-electric-ear-washer-multi-functional-earwax-ear-canal-cleaner'] -%}
+      {%- if sticky_product.featured_image -%}
+        <img src="{{ sticky_product.featured_image | image_url: width: 88 }}" alt="{{ sticky_product.title | escape }}" style="height:44px; width:44px; flex-shrink:0; border-radius:10px; object-fit:contain; background:var(--color-secondary, #f1f5f9); padding:4px;" width="44" height="44" loading="lazy" decoding="async">
+      {%- else -%}
+        <img src="{{ 'sticky-product-thumb.png' | asset_url }}" alt="Electric Ear Cleaner {%- render 'brand-name' -%}" style="height:44px; width:44px; flex-shrink:0; border-radius:10px; object-fit:contain; background:var(--color-secondary, #f1f5f9); padding:4px;" width="44" height="44" loading="lazy" decoding="async">
+      {%- endif -%}
+      <div class="sticky-bar-text" style="min-width:0; flex:1;">
+        <p class="sticky-bar-title" style="font-size:0.8rem; font-weight:600; line-height:1.15; margin:0 0 4px 0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">Electric Ear Cleaner {% render 'brand-name' %}</p>
+        <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+          <span style="font-size:0.95rem; font-weight:700; color:var(--color-primary);" data-sticky-price>$49.99</span>
+          <span style="font-size:0.7rem; color:#DC2626; font-weight:600;">Launch offer</span>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="sticky-bar-cta" data-sticky-add style="background:var(--color-primary); color:var(--color-primary-fg, #fff); border:0; cursor:pointer; text-transform:none; font-weight:700; border-radius:9999px; padding:0.6rem 1.25rem; font-size:0.85rem; flex-shrink:0; white-space:nowrap;">Add to Cart</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const bar = document.querySelector('[data-sticky-bar]');
+  if (!bar) return;
+  const addBtn = bar.querySelector('[data-sticky-add]');
+  const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
+  let visible = false;
+
+  function update() {
+    const drawerOpen = document.querySelector('[data-cart-drawer]')?.getAttribute('data-open') === 'true';
+    if (isMobile()) {
+      // Mobile: always visible unless cart drawer open
+      bar.dataset.mobileAlways = drawerOpen ? 'false' : 'true';
+      bar.dataset.visible = 'false';
+    } else {
+      // Desktop: visible after 200px scroll
+      const shouldShow = window.scrollY > 200 && !drawerOpen;
+      bar.dataset.mobileAlways = 'false';
+      bar.dataset.visible = shouldShow ? 'true' : 'false';
+    }
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  document.addEventListener('cleanear:cart-state', update);
+  update();
+
+  if (addBtn) {
+    addBtn.addEventListener('click', () => {
+      // Triggers default product add (1x)
+      const defaultBundle = document.querySelector('[data-bundle][aria-pressed="true"]') || document.querySelector('[data-bundle]');
+      if (!defaultBundle) return;
+      const variantId = defaultBundle.dataset.bundleVariant;
+      const qty = parseInt(defaultBundle.dataset.bundleQuantity || '1', 10);
+      const price = parseFloat(defaultBundle.dataset.bundlePrice);
+      const unitPrice = +(price / qty).toFixed(2);
+      if (window.CleanEarCart) {
+        window.CleanEarCart.openWith([{
+          id: 'main-product',
+          variantId: variantId,
+          title: defaultBundle.dataset.bundleTitle || 'Product',
+          price: unitPrice,
+          quantity: qty,
+          image: defaultBundle.dataset.bundleImage || ''
+        }]);
+      }
+      if (window.fbq) {
+        window.fbq('track', 'AddToCart', {
+          value: price,
+          currency: 'USD',
+          content_ids: [variantId],
+          content_type: 'product',
+          num_items: qty
+        });
+      }
+    });
+  }
+})();
+</script>

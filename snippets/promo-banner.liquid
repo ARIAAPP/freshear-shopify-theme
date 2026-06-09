@@ -1,0 +1,153 @@
+{%- comment -%}
+  Promo Banner — Mother's Day 2025
+  Shows a banner at the top of the site with countdown.
+  Only visible from May 25 to June 1, 2026 (auto-hide via JS).
+  The visitor can close the banner (localStorage).
+{%- endcomment -%}
+
+<div id="PromoBanner" class="promo-banner" style="display:none;" role="banner" aria-label="Mother's Day Promotion">
+  <div class="promo-banner__inner">
+    <span class="promo-banner__emoji">🎁</span>
+    <span class="promo-banner__text">
+      Mother's Day: <strong>$5 off</strong> with code
+    </span>
+    <button type="button" class="promo-banner__code" onclick="navigator.clipboard.writeText('MOTHER5');this.textContent='Copied!';setTimeout(()=>this.textContent='MOTHER5',1500);" title="Click to copy">MOTHER5</button>
+    <span class="promo-banner__sep">&bull;</span>
+    <span class="promo-banner__timer" id="PromoCountdown">--d --h --m --s</span>
+    <button type="button" class="promo-banner__close" aria-label="Close" onclick="document.getElementById('PromoBanner').style.display='none';localStorage.setItem('promo_banner_closed','mother5');">&times;</button>
+  </div>
+</div>
+
+<style>
+  .promo-banner {
+    background: linear-gradient(135deg, #e91e63 0%, #c2185b 50%, #880e4f 100%);
+    color: #fff;
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    position: relative;
+    z-index: 9999;
+    overflow: hidden;
+  }
+  .promo-banner__inner {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0.55rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+  }
+  .promo-banner__emoji {
+    font-size: 1.1rem;
+  }
+  .promo-banner__text {
+    white-space: nowrap;
+  }
+  .promo-banner__text strong {
+    font-weight: 800;
+  }
+  .promo-banner__code {
+    background: #fff;
+    color: #c2185b;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 4px;
+    border: 2px dashed rgba(255,255,255,0.5);
+    cursor: pointer;
+    font-family: monospace;
+    letter-spacing: 0.05em;
+    transition: transform 0.15s;
+  }
+  .promo-banner__code:hover {
+    transform: scale(1.06);
+  }
+  .promo-banner__sep {
+    opacity: 0.6;
+    font-size: 0.7rem;
+  }
+  .promo-banner__timer {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .promo-banner__close {
+    position: absolute;
+    right: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0.2rem 0.4rem;
+    line-height: 1;
+  }
+  .promo-banner__close:hover {
+    color: #fff;
+  }
+
+  @media (max-width: 600px) {
+    .promo-banner__inner {
+      font-size: 0.78rem;
+      padding: 0.5rem 2rem 0.5rem 0.6rem;
+      gap: 0.3rem;
+    }
+    .promo-banner__sep { display: none; }
+    .promo-banner__timer {
+      width: 100%;
+      text-align: center;
+      font-size: 0.75rem;
+      margin-top: 0.15rem;
+    }
+  }
+</style>
+
+<script>
+(function() {
+  var banner = document.getElementById('PromoBanner');
+  if (!banner) return;
+
+  // Dates: visible from May 25 00:00 to June 1 00:00 (ET = UTC-4 in summer)
+  var START  = new Date('2026-05-25T00:00:00-04:00').getTime();
+  var END    = new Date('2026-06-01T00:00:00-04:00').getTime();
+
+  var now = Date.now();
+
+  // Outside period — don't show
+  if (now < START || now >= END) return;
+
+  // Already closed by user
+  if (localStorage.getItem('promo_banner_closed') === 'mother5') return;
+
+  banner.style.display = 'block';
+
+  var timerEl = document.getElementById('PromoCountdown');
+
+  function tick() {
+    var diff = END - Date.now();
+    if (diff <= 0) {
+      banner.style.display = 'none';
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+
+    var parts = [];
+    if (d > 0) parts.push(d + 'd');
+    parts.push(h + 'h');
+    parts.push((m < 10 ? '0' : '') + m + 'm');
+    parts.push((s < 10 ? '0' : '') + s + 's');
+
+    timerEl.textContent = 'Expires in ' + parts.join(' ');
+    requestAnimationFrame(function() { setTimeout(tick, 1000); });
+  }
+  tick();
+})();
+</script>

@@ -1,0 +1,49 @@
+{%- capture _bn -%}{%- render 'brand-name' -%}{%- endcapture -%}
+{%- capture _bf -%}{%- render 'brand-full' -%}{%- endcapture -%}
+<section class="story-section">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-image">
+        {%- if section.settings.image != blank -%}
+          <img src="{{ section.settings.image | image_url: width: 800 }}" alt="{{ section.settings.founder_name }}" loading="lazy" decoding="async" width="600" height="750">
+        {%- else -%}
+          <img src="{{ 'team-cleanear.jpg' | asset_url }}" alt="{{ section.settings.founder_name }}" loading="lazy" decoding="async" width="600" height="750">
+        {%- endif -%}
+      </div>
+      <div class="story-content">
+        <p class="text-sm font-semibold text-primary uppercase tracking-wider" style="margin-bottom: 0.75rem;">{{ section.settings.eyebrow }}</p>
+        <h2>{{ section.settings.title | replace: 'CleanEar Co.', _bf | replace: 'CleanEar', _bn }}</h2>
+        <div>{{ section.settings.text | replace: 'CleanEar', _bn }}</div>
+        <div class="story-signature">
+          <span style="font-size: 1.5rem;">✍️</span>
+          <div>
+            <div class="story-signature-name">{{ section.settings.founder_name | replace: 'CleanEar', _bn }}</div>
+            <div class="story-signature-title">{{ section.settings.founder_title }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Our Story",
+  "tag": "section",
+  "class": "story-section-wrapper",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our story" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Why we created FreshEar Co." },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>In 2024, after years of using cotton swabs and ending up at the ENT doctor for earwax buildup, we realized there was no simple, safe, and effective solution.</p><p>ENT doctors have been saying it for years: cotton swabs push earwax deeper instead of removing it, and can damage the eardrum. But a real alternative didn't exist for everyone.</p><p>So we created <strong>FreshEar</strong>: an electric ear cleaner designed with care, tested by families, and built to make ear cleaning simple, safe, and even satisfying to watch.</p><p>Today, over 300 families trust us. We hope you'll be next.</p>"
+    },
+    { "type": "image_picker", "id": "image", "label": "Founder image" },
+    { "type": "text", "id": "founder_name", "label": "Founder name", "default": "The FreshEar Team" },
+    { "type": "text", "id": "founder_title", "label": "Founder title", "default": "Co., made with care" }
+  ],
+  "presets": [{ "name": "Our Story" }]
+}
+{% endschema %}

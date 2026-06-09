@@ -1,0 +1,59 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "color_primary": "#4ECDC4",
+    "color_primary_foreground": "#ffffff",
+    "color_accent": "#dc2626",
+    "color_accent_foreground": "#ffffff",
+    "color_background": "#ffffff",
+    "color_foreground": "#121212",
+    "color_muted": "#f3f4f5",
+    "color_muted_foreground": "#737373",
+    "color_border": "#e5e5e5",
+    "color_footer_bg": "#121212",
+    "color_footer_fg": "#e5e5e5",
+    "font_family": "poppins",
+    "logo_max_width": 140,
+    "brand_text": "FreshEar Co",
+    "brand_text_highlight": "Ear",
+    "meta_pixel_id": "",
+    "meta_domain_verification": "",
+    "clarity_id": "",
+    "container_max_width": 1400,
+    "border_radius": 8,
+    "content_for_index": [],
+    "blocks": {}
+  },
+  "presets": {
+    "Default": {
+      "color_primary": "#4ECDC4",
+      "color_primary_foreground": "#ffffff",
+      "color_accent": "#dc2626",
+      "color_accent_foreground": "#ffffff",
+      "color_background": "#ffffff",
+      "color_foreground": "#121212",
+      "color_muted": "#f3f4f5",
+      "color_muted_foreground": "#737373",
+      "color_border": "#e5e5e5",
+      "color_footer_bg": "#121212",
+      "color_footer_fg": "#e5e5e5",
+      "font_family": "poppins",
+      "logo_max_width": 140,
+      "brand_text": "FreshEar Co",
+      "brand_text_highlight": "Ear",
+      "meta_pixel_id": "",
+      "meta_domain_verification": "",
+      "clarity_id": "",
+      "container_max_width": 1400,
+      "border_radius": 8
+    }
+  }
+}

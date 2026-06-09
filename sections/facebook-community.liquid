@@ -1,0 +1,129 @@
+<section class="py-16 md:py-20">
+  <div class="container space-y-10">
+    <h2 class="text-3xl md:text-4xl font-bold text-center">{{ section.settings.title }}</h2>
+
+    {%- liquid
+      assign default_fb_avatars = 'review-christine-d.jpg,review-pierre-l.jpg,review-annie-r.jpg' | split: ','
+      assign default_fb_images = 'ugc-femme-salle-bain.jpg,fb-post-homme-peignoir.jpg,ugc-femme-reservoir.jpg' | split: ','
+    -%}
+    <div class="grid md:grid-cols-3 gap-6">
+      {%- for block in section.blocks -%}
+        <div class="rounded-2xl border bg-background overflow-hidden" {{ block.shopify_attributes }} style="border-color: var(--color-border);">
+          {%- comment -%} Header {%- endcomment -%}
+          <div class="flex items-center justify-between p-4 pb-2">
+            <div class="flex items-center gap-3">
+              <div class="h-10 w-10 overflow-hidden rounded-full border bg-secondary" style="border-color: var(--color-border);">
+                {%- if block.settings.avatar != blank -%}
+                  <img src="{{ block.settings.avatar | image_url: width: 80 }}" alt="Profile photo of {{ block.settings.name }}" width="40" height="40" loading="lazy" decoding="async" class="h-full w-full object-cover">
+                {%- else -%}
+                  {%- assign idx0 = forloop.index0 | modulo: 3 -%}
+                  <img src="{{ default_fb_avatars[idx0] | asset_url }}" alt="Profile photo of {{ block.settings.name }}" width="40" height="40" loading="lazy" decoding="async" class="h-full w-full object-cover">
+                {%- endif -%}
+              </div>
+              <div>
+                <p class="text-sm font-semibold">{{ block.settings.name }}</p>
+                <p class="text-[10px] text-muted-foreground">{{ block.settings.time }}</p>
+              </div>
+            </div>
+            <span class="text-muted-foreground" style="font-size: 1.2rem; line-height: 1;">⋯</span>
+          </div>
+
+          {%- comment -%} Text {%- endcomment -%}
+          <p class="px-4 pb-3 text-sm">{{ block.settings.text }}</p>
+
+          {%- comment -%} Image {%- endcomment -%}
+          <div class="bg-secondary aspect-square">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ shop.name }}" class="w-full h-full object-cover" width="400" height="400" loading="lazy" decoding="async">
+            {%- else -%}
+              {%- assign idx0 = forloop.index0 | modulo: 3 -%}
+              <img src="{{ default_fb_images[idx0] | asset_url }}" alt="{{ shop.name }}" class="w-full h-full object-cover" width="400" height="400" loading="lazy" decoding="async">
+            {%- endif -%}
+          </div>
+
+          {%- comment -%} Reactions {%- endcomment -%}
+          <div class="px-4 py-2 flex items-center justify-between text-xs text-muted-foreground border-b" style="border-color: var(--color-border);">
+            <span>👍❤️😮 {{ block.settings.likes }}</span>
+            <span>{{ block.settings.comments }} comments</span>
+          </div>
+
+          {%- comment -%} Actions {%- endcomment -%}
+          <div class="flex items-center justify-around text-xs font-medium text-muted-foreground" style="padding: 0.5rem 0;">
+            <span class="flex items-center gap-1.5">👍 Like</span>
+            <span class="flex items-center gap-1.5">💬 Comment</span>
+            <span class="flex items-center gap-1.5">↗️ Share</span>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Facebook Community",
+  "tag": "section",
+  "class": "facebook-community-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Love from our Facebook community 💛"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "post",
+      "name": "Post",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Sophie M."
+        },
+        {
+          "type": "text",
+          "id": "time",
+          "label": "Time elapsed",
+          "default": "7h ago"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Post text",
+          "default": "It's one of those products that seems simple but truly changes your daily routine."
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product image"
+        },
+        {
+          "type": "text",
+          "id": "likes",
+          "label": "Likes (text)",
+          "default": "874"
+        },
+        {
+          "type": "text",
+          "id": "comments",
+          "label": "Number of comments",
+          "default": "43"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Facebook Community"
+    }
+  ]
+}
+{% endschema %}

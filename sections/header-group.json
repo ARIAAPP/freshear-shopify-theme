@@ -1,0 +1,91 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "msg-1": {
+          "type": "message",
+          "settings": {
+            "text": "🚚 Free shipping across the USA"
+          }
+        },
+        "msg-2": {
+          "type": "message",
+          "settings": {
+            "text": "🎁 Launch offer in progress"
+          }
+        },
+        "msg-3": {
+          "type": "message",
+          "settings": {
+            "text": "📦 Ships within 48h"
+          }
+        }
+      },
+      "block_order": [
+        "msg-1",
+        "msg-2",
+        "msg-3"
+      ],
+      "settings": {}
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "link-1": {
+          "type": "link",
+          "settings": {
+            "label": "Home",
+            "url": "/"
+          }
+        },
+        "link-2": {
+          "type": "link",
+          "settings": {
+            "label": "About",
+            "url": "/pages/about"
+          }
+        },
+        "link-3": {
+          "type": "link",
+          "settings": {
+            "label": "Contact",
+            "url": "/pages/contact"
+          }
+        },
+        "link-4": {
+          "type": "link",
+          "settings": {
+            "label": "Track my order",
+            "url": "/account",
+            "open_new_tab": true
+          }
+        }
+      },
+      "block_order": [
+        "link-1",
+        "link-2",
+        "link-3",
+        "link-4"
+      ],
+      "settings": {
+        "account_url": "/account"
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
+}

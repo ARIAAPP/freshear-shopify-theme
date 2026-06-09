@@ -1,0 +1,97 @@
+{%- capture _bf -%}{%- render 'brand-full' -%}{%- endcapture -%}
+<section class="py-16 md:py-20">
+  <div class="container">
+    <h2 class="text-3xl font-bold text-center" style="margin-bottom: 2.5rem;">
+      {{ section.settings.title_before }} <span class="text-primary">{{ section.settings.title_highlight | replace: 'CleanEar Co.', _bf | replace: 'CleanEar', _bf }}</span>{{ section.settings.title_after }}
+    </h2>
+
+    <div class="grid lg:grid-cols-2 rounded-2xl overflow-hidden">
+      {%- comment -%} Left: text + CTA {%- endcomment -%}
+      <div class="bg-foreground text-background flex flex-col justify-center space-y-6" style="padding: 2.5rem 3rem;">
+        <ul class="space-y-3">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'benefit' -%}
+              <li class="flex items-center gap-3 text-sm md:text-base font-medium" {{ block.shopify_attributes }}>
+                <span class="text-primary">✓</span> {{ block.settings.text }}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+        <a href="{{ section.settings.cta_url }}" class="btn btn-lg" style="align-self: flex-start;">{{ section.settings.cta_label }}</a>
+      </div>
+
+      {%- comment -%} Right: teal bg + image {%- endcomment -%}
+      <div class="bg-primary relative flex items-center justify-center min-h-[400px]" style="padding: 2.5rem 3rem;">
+        {%- if section.settings.image != blank -%}
+          <img src="{{ section.settings.image | image_url: width: 800 }}" alt="{{ shop.name }}" width="512" height="512" loading="lazy" decoding="async" class="relative z-10 drop-shadow-2xl" style="height: 320px; object-fit: contain;">
+        {%- else -%}
+          <img src="{{ 'hero-product.webp' | asset_url }}" alt="{{ shop.name }}" width="512" height="512" loading="lazy" decoding="async" class="relative z-10 drop-shadow-2xl" style="height: 320px; object-fit: contain;">
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why Us",
+  "tag": "section",
+  "class": "why-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_before",
+      "label": "Title — part 1",
+      "default": "Why everyone is switching to"
+    },
+    {
+      "type": "text",
+      "id": "title_highlight",
+      "label": "Title — highlighted part",
+      "default": "FreshEar Co."
+    },
+    {
+      "type": "text",
+      "id": "title_after",
+      "label": "Title — part 3 (with ?)",
+      "default": "?"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product image (right side)"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button text",
+      "default": "Make the switch"
+    },
+    {
+      "type": "text",
+      "id": "cta_url",
+      "label": "Button URL",
+      "default": "/#product"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Easy storage"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why Us"
+    }
+  ]
+}
+{% endschema %}

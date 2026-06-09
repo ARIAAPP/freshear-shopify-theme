@@ -1,0 +1,266 @@
+{%- comment -%} UGC Video Testimonials — autoplay muted carousel {%- endcomment -%}
+{%- capture _bn -%}{%- render 'brand-name' -%}{%- endcapture -%}
+<section class="ugc-videos-section" style="padding:3rem 0 3.5rem;background:var(--color-bg);">
+  <div class="container" style="max-width:var(--container-max);margin:0 auto;padding:0 1rem;">
+
+    {%- comment -%} Header {%- endcomment -%}
+    <div style="text-align:center;margin-bottom:2rem;">
+      <span style="display:inline-block;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-primary);margin-bottom:0.5rem;">{{ section.settings.eyebrow | replace: 'CleanEar', _bn }}</span>
+      <h2 style="font-size:clamp(1.5rem,4vw,2rem);font-weight:800;margin:0 0 0.5rem;line-height:1.15;">{{ section.settings.title }}</h2>
+      <p style="color:var(--color-muted-fg);font-size:0.95rem;margin:0;">{{ section.settings.subtitle | replace: 'CleanEar', _bn }}</p>
+    </div>
+
+    {%- comment -%} Video grid — horizontal scroll mobile, 3-col desktop {%- endcomment -%}
+    <div class="ugc-videos-grid" style="display:flex;gap:0.75rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:0.5rem;scrollbar-width:none;">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'video' -%}
+        <div class="ugc-video-card" style="flex:0 0 48%;max-width:48%;scroll-snap-align:start;position:relative;border-radius:16px;overflow:hidden;background:#000;aspect-ratio:9/16;" {{ block.shopify_attributes }}>
+          <video
+            class="ugc-vid"
+            src="{{ block.settings.video_asset | asset_url }}"
+            playsinline
+            muted
+            loop
+            preload="metadata"
+            style="width:100%;height:100%;object-fit:cover;display:block;"
+          ></video>
+          {%- comment -%} Play overlay {%- endcomment -%}
+          <div class="ugc-play-overlay" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:rgba(0,0,0,0.15);transition:background 0.2s;">
+            <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,0.2);transition:transform 0.2s;">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="margin-left:2px;">
+                <path d="M5 3.5L16.5 10L5 16.5V3.5Z" fill="var(--color-primary, #10B981)"/>
+              </svg>
+            </div>
+          </div>
+          {%- comment -%} Sound indicator {%- endcomment -%}
+          <div class="ugc-sound-badge" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.55);color:#fff;font-size:0.65rem;padding:4px 8px;border-radius:20px;display:none;align-items:center;gap:4px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            Sound
+          </div>
+          {%- if block.settings.caption != blank -%}
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:2rem 0.75rem 0.75rem;background:linear-gradient(transparent,rgba(0,0,0,0.6));color:#fff;font-size:0.75rem;font-weight:500;pointer-events:none;">
+            {{ block.settings.caption }}
+          </div>
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} Navigation arrows (mobile only) {%- endcomment -%}
+    <button class="ugc-nav-arrow ugc-nav-prev" data-ugc-prev aria-label="Previous">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="ugc-nav-arrow ugc-nav-next" data-ugc-next aria-label="Next">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+
+    {%- comment -%} Dots (mobile only) {%- endcomment -%}
+    <div class="ugc-dots" data-ugc-dots>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'video' -%}
+          <span class="ugc-dot{% if forloop.first %} active{% endif %}" data-ugc-dot="{{ forloop.index0 }}"></span>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} CTA {%- endcomment -%}
+    {%- if section.settings.show_cta -%}
+    <div style="text-align:center;margin-top:1.5rem;">
+      <a href="{{ section.settings.cta_url }}" class="btn btn-lg" style="font-weight:700;">{{ section.settings.cta_label | replace: 'CleanEar', _bn }}</a>
+    </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .ugc-videos-grid::-webkit-scrollbar { display: none; }
+  .ugc-videos-section { position: relative; }
+
+  /* Navigation arrows — mobile only */
+  .ugc-nav-arrow {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px; height: 36px;
+    align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    cursor: pointer;
+    z-index: 10;
+    color: var(--color-fg);
+  }
+  .ugc-nav-prev { left: 4px; }
+  .ugc-nav-next { right: 4px; }
+
+  /* Dots — mobile only */
+  .ugc-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 1rem;
+  }
+  .ugc-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--color-border, #d1d5db);
+    transition: background 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+  .ugc-dot.active {
+    background: var(--color-primary);
+    transform: scale(1.25);
+  }
+
+  @media (min-width: 768px) {
+    .ugc-videos-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 1rem !important;
+      overflow-x: visible !important;
+    }
+    .ugc-video-card {
+      flex: none !important;
+      max-width: none !important;
+    }
+    .ugc-nav-arrow, .ugc-dots { display: none !important; }
+  }
+  @media (min-width: 1024px) {
+    .ugc-videos-grid {
+      grid-template-columns: repeat(6, 1fr) !important;
+    }
+  }
+
+  .ugc-video-card:hover .ugc-play-overlay {
+    background: rgba(0,0,0,0.05);
+  }
+  .ugc-video-card:hover .ugc-play-overlay > div {
+    transform: scale(1.08);
+  }
+  .ugc-video-card.playing .ugc-play-overlay {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .ugc-video-card.playing .ugc-sound-badge {
+    display: flex !important;
+  }
+</style>
+
+<script>
+(function() {
+  var cards = document.querySelectorAll('.ugc-video-card');
+  if (!cards.length) return;
+  var grid = document.querySelector('.ugc-videos-grid');
+  var dots = document.querySelectorAll('.ugc-dot');
+  var prevBtn = document.querySelector('[data-ugc-prev]');
+  var nextBtn = document.querySelector('[data-ugc-next]');
+
+  /* --- Dots & arrows (mobile scroll nav) --- */
+  function updateDots() {
+    if (!grid || !dots.length) return;
+    var scrollLeft = grid.scrollLeft;
+    var cardWidth = cards[0].offsetWidth + 12; /* card width + gap */
+    var activeIdx = Math.round(scrollLeft / cardWidth);
+    dots.forEach(function(d, i) {
+      d.classList.toggle('active', i === activeIdx);
+    });
+  }
+
+  function scrollToCard(idx) {
+    if (!grid || idx < 0 || idx >= cards.length) return;
+    var cardWidth = cards[0].offsetWidth + 12;
+    grid.scrollTo({ left: cardWidth * idx, behavior: 'smooth' });
+  }
+
+  if (grid) {
+    grid.addEventListener('scroll', updateDots, { passive: true });
+  }
+  dots.forEach(function(d) {
+    d.addEventListener('click', function() {
+      scrollToCard(parseInt(d.dataset.ugcDot, 10));
+    });
+  });
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function() {
+      var cardWidth = cards[0].offsetWidth + 12;
+      var current = Math.round(grid.scrollLeft / cardWidth);
+      scrollToCard(Math.max(0, current - 1));
+    });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function() {
+      var cardWidth = cards[0].offsetWidth + 12;
+      var current = Math.round(grid.scrollLeft / cardWidth);
+      scrollToCard(Math.min(cards.length - 1, current + 1));
+    });
+  }
+
+  /* --- IntersectionObserver — autoplay when visible, pause when not --- */
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      var vid = e.target.querySelector('.ugc-vid');
+      if (!vid) return;
+      if (e.isIntersecting) {
+        vid.play().catch(function(){});
+      } else {
+        vid.pause();
+      }
+    });
+  }, { threshold: 0.4 });
+
+  cards.forEach(function(card) {
+    observer.observe(card);
+
+    var vid = card.querySelector('.ugc-vid');
+    if (!vid) return;
+
+    /* Tap: toggle mute & show "playing" state */
+    card.addEventListener('click', function() {
+      if (card.classList.contains('playing')) {
+        vid.muted = true;
+        card.classList.remove('playing');
+      } else {
+        document.querySelectorAll('.ugc-video-card.playing').forEach(function(c) {
+          c.classList.remove('playing');
+          var v = c.querySelector('.ugc-vid');
+          if (v) v.muted = true;
+        });
+        vid.muted = false;
+        vid.play().catch(function(){});
+        card.classList.add('playing');
+      }
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "UGC Videos",
+  "tag": "section",
+  "class": "ugc-videos",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Customer videos" },
+    { "type": "text", "id": "title", "label": "Title", "default": "They tried it" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Real videos from our customers" },
+    { "type": "checkbox", "id": "show_cta", "label": "Show CTA button", "default": true },
+    { "type": "text", "id": "cta_label", "label": "CTA text", "default": "I want mine" },
+    { "type": "text", "id": "cta_url", "label": "CTA link", "default": "/#product" }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        { "type": "text", "id": "video_asset", "label": "Video filename (in assets/)", "default": "cleanear-ugc-1.mp4" },
+        { "type": "text", "id": "caption", "label": "Caption (optional)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "UGC Videos" }],
+  "max_blocks": 8
+}
+{% endschema %}
