@@ -1,17 +1,15 @@
-/* CleanEar — Cart Drawer Logic */
+/* FreshEar — Cart Drawer Logic */
 (function() {
   'use strict';
 
-  const SHOP_DOMAIN = (window.cleanearTheme && window.cleanearTheme.shopDomain) || (window.Shopify && window.Shopify.shop) || window.location.hostname;
-  const fmt = (n) => '€' + (parseFloat(n) || 0).toFixed(2).replace('.', ',');
+  const SHOP_DOMAIN = (window.freshearTheme && window.freshearTheme.shopDomain) || (window.Shopify && window.Shopify.shop) || window.location.hostname;
+  const fmt = (n) => '$' + (parseFloat(n) || 0).toFixed(2);
 
   const state = {
     isOpen: false,
     items: [],
     addons: [
-      { id: 'protection', variantId: '57819501658457', title: 'Assurance colis', price: 5.95, icon: '📦' },
-      { id: 'warranty',   variantId: '57819509293401', title: 'Garantie 90 jours', price: 9.95, icon: '🛡️' },
-      { id: 'priority',   variantId: '57819516764505', title: 'Traitement prioritaire', price: 7.95, icon: '🚚' }
+      /* Upsell addons disabled until FreshEar upsell products are created */
     ]
   };
 
@@ -100,7 +98,7 @@
       document.body.style.overflow = '';
     }
 
-    document.dispatchEvent(new CustomEvent('cleanear:cart-state', { detail: { isOpen: state.isOpen, items: state.items } }));
+    document.dispatchEvent(new CustomEvent('freshear:cart-state', { detail: { isOpen: state.isOpen, items: state.items } }));
   }
 
   function itemHtml(item) {
@@ -113,14 +111,14 @@
         <div style="flex:1; min-width:0;">
           <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:0.5rem;">
             <p style="font-size:0.875rem; font-weight:600; line-height:1.25; margin:0;">${item.title}</p>
-            <button type="button" data-remove="${item.id}" aria-label="Retirer" style="color:var(--color-muted-fg);">×</button>
+            <button type="button" data-remove="${item.id}" aria-label="Remove" style="color:var(--color-muted-fg);">×</button>
           </div>
           <p style="margin-top:0.25rem; font-size:0.875rem; font-weight:700; color:var(--color-primary);">${fmt(item.price)}</p>
           <div style="margin-top:0.5rem; display:flex; align-items:center; justify-content:space-between;">
             <div style="display:inline-flex; align-items:center; border-radius:9999px; border:1px solid var(--color-border);">
-              <button type="button" data-qty="dec" data-id="${item.id}" aria-label="Diminuer" style="padding:0.25rem 0.5rem; color:var(--color-muted-fg);">−</button>
+              <button type="button" data-qty="dec" data-id="${item.id}" aria-label="Decrease" style="padding:0.25rem 0.5rem; color:var(--color-muted-fg);">−</button>
               <span style="padding:0 0.5rem; font-size:0.875rem; font-weight:600;">${item.quantity}</span>
-              <button type="button" data-qty="inc" data-id="${item.id}" aria-label="Augmenter" style="padding:0.25rem 0.5rem; color:var(--color-muted-fg);">+</button>
+              <button type="button" data-qty="inc" data-id="${item.id}" aria-label="Increase" style="padding:0.25rem 0.5rem; color:var(--color-muted-fg);">+</button>
             </div>
             <p style="font-size:0.875rem; font-weight:600;">${fmt(item.price * item.quantity)}</p>
           </div>
@@ -130,7 +128,7 @@
   }
 
   // Public API
-  window.CleanEarCart = {
+  window.FreshEarCart = {
     open() { state.isOpen = true; render(); },
     close() { state.isOpen = false; render(); },
     toggle() { state.isOpen = !state.isOpen; render(); },
@@ -161,27 +159,27 @@
   // Event listeners
   document.addEventListener('click', (e) => {
     const toggle = e.target.closest('[data-cart-toggle]');
-    if (toggle) { e.preventDefault(); window.CleanEarCart.toggle(); return; }
+    if (toggle) { e.preventDefault(); window.FreshEarCart.toggle(); return; }
     const close = e.target.closest('[data-cart-close]');
-    if (close) { e.preventDefault(); window.CleanEarCart.close(); return; }
+    if (close) { e.preventDefault(); window.FreshEarCart.close(); return; }
     const overlay = e.target.closest('[data-cart-overlay]');
-    if (overlay) { window.CleanEarCart.close(); return; }
+    if (overlay) { window.FreshEarCart.close(); return; }
     const remove = e.target.closest('[data-remove]');
-    if (remove) { window.CleanEarCart.removeItem(remove.dataset.remove); return; }
+    if (remove) { window.FreshEarCart.removeItem(remove.dataset.remove); return; }
     const qtyBtn = e.target.closest('[data-qty]');
     if (qtyBtn) {
       const id = qtyBtn.dataset.id;
       const item = state.items.find(i => i.id === id);
       if (!item) return;
       const newQty = qtyBtn.dataset.qty === 'inc' ? item.quantity + 1 : item.quantity - 1;
-      window.CleanEarCart.setQuantity(id, newQty);
+      window.FreshEarCart.setQuantity(id, newQty);
       return;
     }
     const addAddon = e.target.closest('[data-add-addon]');
     if (addAddon) {
       const addon = state.addons.find(a => a.id === addAddon.dataset.addAddon);
       if (addon) {
-        window.CleanEarCart.addItem({
+        window.FreshEarCart.addItem({
           id: addon.id,
           variantId: addon.variantId,
           title: addon.title,
@@ -191,7 +189,7 @@
         if (window.fbq) {
           window.fbq('track', 'AddToCart', {
             value: addon.price,
-            currency: 'EUR',
+            currency: 'USD',
             content_ids: [addon.variantId],
             content_type: 'product',
             num_items: 1
@@ -209,7 +207,7 @@
       if (window.fbq) {
         window.fbq('track', 'InitiateCheckout', {
           value: +totalPrice().toFixed(2),
-          currency: 'EUR',
+          currency: 'USD',
           content_ids: state.items.map(i => i.variantId),
           content_type: 'product',
           num_items: totalQty()
@@ -225,7 +223,7 @@
       if (window.fbq) {
         window.fbq('track', 'InitiateCheckout', {
           value: +totalPrice().toFixed(2),
-          currency: 'EUR',
+          currency: 'USD',
           content_ids: state.items.map(i => i.variantId),
           content_type: 'product',
           num_items: totalQty()
@@ -237,7 +235,7 @@
 
   // Close on Escape
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && state.isOpen) window.CleanEarCart.close();
+    if (e.key === 'Escape' && state.isOpen) window.FreshEarCart.close();
   });
 
   // Initial render

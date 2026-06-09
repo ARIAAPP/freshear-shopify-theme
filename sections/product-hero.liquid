@@ -10,13 +10,13 @@
   if ph_video_setting != blank
     assign ph_video = ph_video_setting
   else
-    assign ph_video = 'cleanear-hero.mp4' | asset_url
+    assign ph_video = 'freshear-hero.mp4' | asset_url
   endif
   assign ph_poster_setting = section.settings.hero_poster
   if ph_poster_setting != blank
     assign ph_poster = ph_poster_setting | image_url: width: 800
   else
-    assign ph_poster = 'cleanear-hero-poster.jpg' | asset_url
+    assign ph_poster = 'freshear-hero-poster.jpg' | asset_url
   endif
 
   assign default_galleries = 'product-2.webp,product-3.webp,product-4.webp,product-5.webp' | split: ','
@@ -53,8 +53,8 @@
         <video
           data-gallery-slide="2"
           data-gallery-ugc-video
-          src="{{ 'cleanear-ugc-4.mp4' | asset_url }}"
-          poster="{{ 'cleanear-ugc-4-poster.jpg' | asset_url }}"
+          src="{{ 'freshear-ugc-4.mp4' | asset_url }}"
+          poster="{{ 'freshear-ugc-4-poster.jpg' | asset_url }}"
           muted playsinline loop preload="metadata"
           width="480" height="873"
           aria-label="Customer video testimonial"
@@ -103,7 +103,7 @@
         </button>
         {%- comment -%} Thumb 2 : UGC video {%- endcomment -%}
         <button type="button" class="relative h-20 w-20 rounded-lg overflow-hidden border-2 border-transparent cursor-pointer transition-colors gallery-thumb" data-gallery-thumb="2" aria-label="Customer video testimonial">
-          <img src="{{ 'cleanear-ugc-4-poster.jpg' | asset_url }}" alt="" class="h-full w-full object-cover" width="80" height="80" loading="lazy">
+          <img src="{{ 'freshear-ugc-4-poster.jpg' | asset_url }}" alt="" class="h-full w-full object-cover" width="80" height="80" loading="lazy">
           <span class="absolute inset-0 flex items-center justify-center" style="background:rgba(0,0,0,0.3);">
             <span class="flex h-7 w-7 items-center justify-center rounded-full text-foreground text-[10px] font-bold" style="background:rgba(255,255,255,0.9);">▶</span>
           </span>
@@ -435,7 +435,7 @@
   // Countdown
   const countdownText = section.querySelector('[data-countdown-text]');
   if (countdownText) {
-    const KEY = 'cleanear-countdown-end';
+    const KEY = 'freshear-countdown-end';
     const INITIAL = 60 * 60 * 1000; // 1h
     const EXTENSION = 60 * 60 * 1000; // +1h
     let stored = 0, extended = false;
@@ -500,8 +500,8 @@
           quantity: 1
         });
       });
-      if (window.CleanEarCart) {
-        window.CleanEarCart.openWith(items);
+      if (window.FreshEarCart) {
+        window.FreshEarCart.openWith(items);
       }
       if (window.fbq) {
         const cartValue = items.reduce((s, i) => s + i.price * i.quantity, 0);
@@ -786,7 +786,7 @@
           "type": "text",
           "id": "variant_id",
           "label": "Shopify Variant ID",
-          "default": "57818495582553"
+          "default": "57829702009180"
         },
         {
           "type": "number",

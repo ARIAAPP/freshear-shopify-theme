@@ -1,4 +1,4 @@
-/* CleanEar — Global JS */
+/* FreshEar — Global JS */
 (function() {
   'use strict';
 
@@ -18,6 +18,6 @@
   // Expose money formatter
   window.formatMoney = function(value) {
     if (typeof value !== 'number') value = parseFloat(value) || 0;
-    return '€' + value.toFixed(2).replace('.', ',');
+    return '$' + value.toFixed(2);
   };
 })();

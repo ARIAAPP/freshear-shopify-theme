@@ -42,7 +42,7 @@
   }
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update, { passive: true });
-  document.addEventListener('cleanear:cart-state', update);
+  document.addEventListener('freshear:cart-state', update);
   update();
 
   if (addBtn) {
@@ -54,8 +54,8 @@
       const qty = parseInt(defaultBundle.dataset.bundleQuantity || '1', 10);
       const price = parseFloat(defaultBundle.dataset.bundlePrice);
       const unitPrice = +(price / qty).toFixed(2);
-      if (window.CleanEarCart) {
-        window.CleanEarCart.openWith([{
+      if (window.FreshEarCart) {
+        window.FreshEarCart.openWith([{
           id: 'main-product',
           variantId: variantId,
           title: defaultBundle.dataset.bundleTitle || 'Product',
