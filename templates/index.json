@@ -24,9 +24,9 @@
         "bullet_2": { "type": "bullet", "settings": { "text": "Gentle and painless — suitable for the whole family" } },
         "bullet_3": { "type": "bullet", "settings": { "text": "Adjustable pressure for your comfort" } },
         "bullet_4": { "type": "bullet", "settings": { "text": "Transparent reservoir: see the results" } },
-        "bundle_1": { "type": "bundle", "settings": { "label": "1 cleaner", "description": "For personal use", "variant_id": "57829702009180", "quantity": 1, "price": 4999, "original_price": 13317, "save_amount": 0, "badge": "none" } },
-        "bundle_2": { "type": "bundle", "settings": { "label": "2 cleaners", "description": "For you and your partner. Save $9.99.", "variant_id": "57829702009180", "quantity": 2, "price": 8999, "original_price": 24983, "save_amount": 999, "badge": "popular", "badge_text": "Most Popular" } },
-        "bundle_3": { "type": "bundle", "settings": { "label": "3 cleaners", "description": "For the whole family. Save $19.98.", "variant_id": "57829702009180", "quantity": 3, "price": 12999, "original_price": 34983, "save_amount": 1998, "badge": "best", "badge_text": "Best Value" } },
+        "bundle_1": { "type": "bundle", "settings": { "label": "1 cleaner", "description": "For personal use", "variant_id": "57916699705692", "quantity": 1, "price": 4999, "original_price": 9999, "save_amount": 0, "badge": "none" } },
+        "bundle_2": { "type": "bundle", "settings": { "label": "2 cleaners", "description": "For you and your partner. Save $9.99.", "variant_id": "57916699738460", "quantity": 1, "price": 8999, "original_price": 19998, "save_amount": 999, "badge": "popular", "badge_text": "Most Popular" } },
+        "bundle_3": { "type": "bundle", "settings": { "label": "3 cleaners", "description": "For the whole family. Save $19.98.", "variant_id": "57916699771228", "quantity": 1, "price": 12999, "original_price": 29997, "save_amount": 1998, "badge": "best", "badge_text": "Best Value" } },
         "collap_1": { "type": "collapsible", "settings": { "emoji": "📦", "title": "Shipping & Tracking", "content": "<p>Your order is prepared and shipped within 48 hours. You'll receive a confirmation email with tracking number.</p>" } },
         "collap_2": { "type": "collapsible", "settings": { "emoji": "🚚", "title": "Free US Shipping", "content": "<p>Free standard shipping to all US addresses. Delivered in 5–10 business days. Email tracking included.</p>" } }
       },
