@@ -9,7 +9,7 @@
     isOpen: false,
     items: [],
     addons: [
-      /* Upsell addons disabled until FreshEar upsell products are created */
+      { id: 'priority', variantId: '57917096329564', title: 'Priority Processing (24h)', price: 7.95, icon: '🚀' }
     ]
   };
 
